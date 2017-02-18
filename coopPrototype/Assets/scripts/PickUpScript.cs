@@ -4,38 +4,25 @@ using UnityEngine;
 
 public class PickUpScript : MonoBehaviour {
 
-	GameObject katamari;
-
+	// variables for changing the size of the eaten item
 	float xScale;
 	float yScale;
 	float zScale;
-
 	Vector3 scaleHalf;
 
-	void Start () {
+	// storing variables and properties for the text script
+	public Vector3 location;
+	public float posX;
+	public float posY;
+	public float posZ;
 
-		//katamari = GameObject.Find ("Katamari");
+	// when it touches a collider, pick it up
+	public void OnCollisionEnter (Collision other){
 
-//		xScale = this.gameObject.transform.localScale.x;
-//		yScale = this.gameObject.transform.localScale.y;
-//		zScale = this.gameObject.transform.localScale.z;
-	}
+		// store the location of the item
+		// find a way to make it permanent? maybe save it?
+		locationStore(other);
 		
-//	void OnCollisionEnter (Collision other){
-//
-//		//pick it up
-//		this.transform.parent = katamari.transform;
-//
-//		//make it smaller
-//		Vector3 scaleHalf = new Vector3(xScale/2, yScale/2, zScale/2);
-//		this.transform.localScale = scaleHalf;
-//
-//		Debug.Log ("picked up by the ball");
-//
-//	}
-
-	void OnCollisionEnter (Collision other){
-
 		// pick up object it touches
 		if (!other.gameObject.name.Contains ("Plane")) {
 			other.transform.parent = this.gameObject.transform;
@@ -47,5 +34,17 @@ public class PickUpScript : MonoBehaviour {
 
 			Vector3 scaleHalf = new Vector3 (xScale / 2, yScale / 2, zScale / 2);
 		}
+	}
+
+	public void locationStore (Collision other){
+
+		posX = other.gameObject.transform.position.x;
+		posY = other.gameObject.transform.position.y;
+		posZ = other.gameObject.transform.position.z;
+
+		location = new Vector3 (posX, posY, posZ);
+
+		Debug.Log ("STORED" + location);
+
 	}
 }
