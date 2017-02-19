@@ -16,10 +16,19 @@ public class TextParserScript : MonoBehaviour {
 
 		string finalFilePath = Application.dataPath + "/" + fileName;
 
+		// write to a file -- testing purposes only
+		StreamWriter sw = new StreamWriter(finalFilePath, false);
+
+		for (int i = 0; i < codeBits.Count; i++) {
+			sw.WriteLine (codeBits[i] + i);
+		}
+
+		sw.Close ();
+
 		// read from a file
 		StreamReader sr = new StreamReader(finalFilePath, false);
 
-		int i = 0;
+		int j = 0;
 
 		while (!sr.EndOfStream) {
 			string line = sr.ReadLine ();
@@ -29,8 +38,10 @@ public class TextParserScript : MonoBehaviour {
 			string lines = splitLine [0];
 			codeBits.Add (lines);
 
-			i++;
+			j++;
 		}
+
+		sr.Close();
 		
 	}
 	
